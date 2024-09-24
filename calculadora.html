@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Bases Numéricas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1E1E1E, #373737);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-weight: 500;
+            font-size: 24px;
+            color: #f0f0f0;
+        }
+
+        label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #110f0f;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        select:focus, input[type="text"]:focus {
+            background-color: rgba(255, 255, 255, 0.4);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #000000;
+        }
+
+        .results {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .results div {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .results div:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            select, input[type="text"] {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Conversor de Bases Numéricas</h1>
+
+        <label for="tipoNumero">Escolha o tipo de número:</label>
+        <select id="tipoNumero">
+            <option value="hex">Hexadecimal</option>
+            <option value="bin">Binário</option>
+            <option value="oct">Octal</option>
+            <option value="dec">Decimal</option>
+        </select>
+
+        <label for="numero">Digite o número:</label>
+        <input type="text" id="numero" placeholder="Digite o número">
+
+        <button onclick="converter()">Converter</button>
+
+        <div class="results">
+            <div id="binario"></div>
+            <div id="octal"></div>
+            <div id="decimal"></div>
+            <div id="hexadecimal"></div>
+        </div>
+    </div>
+
+    <script>
+        // Função de conversão
+        function converter() {
+            let tipoNumero = document.getElementById("tipoNumero").value;
+            let numero = document.getElementById("numero").value.trim();
+
+            let binario, octal, decimal, hexadecimal;
+
+            try {
+                if (tipoNumero === "hex") {
+                    decimal = parseInt(numero, 16);
+                    binario = decimal.toString(2);
+                    octal = decimal.toString(8);
+                    hexadecimal = numero.toUpperCase();
+                } else if (tipoNumero === "bin") {
+                    decimal = parseInt(numero, 2);
+                    binario = numero;
+                    octal = decimal.toString(8);
+                    hexadecimal = decimal.toString(16).toUpperCase();
+                } else if (tipoNumero === "oct") {
+                    decimal = parseInt(numero, 8);
+                    binario = decimal.toString(2);
+                    octal = numero;
+                    hexadecimal = decimal.toString(16).toUpperCase();
+                } else if (tipoNumero === "dec") {
+                    decimal = parseInt(numero, 10);
+                    binario = decimal.toString(2);
+                    octal = decimal.toString(8);
+                    hexadecimal = decimal.toString(16).toUpperCase();
+                } else {
+                    alert("Selecione uma opção válida!");
+                    return;
+                }
+
+                // Exibindo os resultados
+                document.getElementById("binario").innerHTML = "Binário: " + binario;
+                document.getElementById("octal").innerHTML = "Octal: " + octal;
+                document.getElementById("decimal").innerHTML = "Decimal: " + decimal;
+                document.getElementById("hexadecimal").innerHTML = "Hexadecimal: " + hexadecimal;
+            } catch (e) {
+                alert("Erro na conversão. Verifique o número inserido.");
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
